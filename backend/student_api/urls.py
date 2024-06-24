@@ -4,6 +4,7 @@ from django.urls import path
 
 from .views.token import CustomTokenObtainPairView
 from .views.semester import SemestersView, SemesterView
+from .views.examination import ExaminationsView, ExaminationView
 
 
 urlpatterns = [
@@ -15,4 +16,8 @@ urlpatterns = [
     path(route="semester/", view=SemestersView.as_view(), name="semester"),
     # GETT: localhost:8000/user/semester/
     path(route="semester/detail/", view=SemesterView.as_view(), name="semester_detail"),
+    # GETT: localhost:8000/user/examination/
+    path(route="examination/", view=ExaminationsView.as_view(), name="examination"),
+    # GETT: localhost:8000/user/examination/
+    path(route="examination/detail/", view=ExaminationView.as_view(), name="examination_detail"),
 ]
