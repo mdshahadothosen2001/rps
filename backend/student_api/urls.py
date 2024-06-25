@@ -5,9 +5,12 @@ from django.urls import path
 from .views.token import CustomTokenObtainPairView
 from .views.semester import SemestersView, SemesterView
 from .views.examination import ExaminationsView, ExaminationView
+from .views.register import UserRegistrationView
 
 
 urlpatterns = [
+    # POST: localhost:8000/user/student-register/
+    path(route="student-register/", view=UserRegistrationView.as_view(), name="register"),
     # POST: localhost:8000/user/token/
     path(route="token/", view=CustomTokenObtainPairView.as_view(), name="token"),
     # POST: localhost:8000/user/token/refresh/
