@@ -6,6 +6,7 @@ from .views.token import CustomTokenObtainPairView
 from .views.semester import SemestersView, SemesterView
 from .views.examination import ExaminationsView, ExaminationView
 from .views.register import UserRegistrationView
+from .views.answer import AnswerSubmittionView
 
 
 urlpatterns = [
@@ -23,4 +24,6 @@ urlpatterns = [
     path(route="examination/", view=ExaminationsView.as_view(), name="examination"),
     # GETT: localhost:8000/user/examination/
     path(route="examination/detail/", view=ExaminationView.as_view(), name="examination_detail"),
+    # POST: localhost:8000/user/answer-submit/
+    path(route="answer-submit/", view=AnswerSubmittionView.as_view(), name="answer_submit"),
 ]
