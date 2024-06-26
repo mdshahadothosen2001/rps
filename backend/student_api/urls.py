@@ -8,6 +8,7 @@ from .views.examination import ExaminationsView, ExaminationView
 from .views.register import UserRegistrationView
 from .views.answer import AnswerSubmittionView
 from .views.result import SemesterResultView, SemesterFinalResultView
+from .views.dashboard import DashboardView
 
 
 urlpatterns = [
@@ -31,4 +32,6 @@ urlpatterns = [
     path(route="result/", view=SemesterResultView.as_view(), name="semester_result"),
     # GET: localhost:8000/user/final-result/
     path(route="final-result/", view=SemesterFinalResultView.as_view(), name="semester_final_result"),
+    # GET: localhost:8000/user/dashboard/
+    path(route="dashboard/", view=DashboardView.as_view(), name="dashboard"),
 ]
