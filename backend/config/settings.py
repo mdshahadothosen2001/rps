@@ -126,8 +126,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # cross permission
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
-    "https://result-processing-system.vercel.app/",
-    "http://result-processing-system.vercel.app/",
+    "https://result-processing-system.vercel.app",
+    "http://result-processing-system.vercel.app",
 ]
 
 CORS_ALLOW_HEADERS = [
