@@ -124,10 +124,25 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # cross permission
-CORS_ALLOW_ALL_ORIGINS = True
-
-APPEND_SLASH = False
-
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
+    "https://result-processing-system.vercel.app/",
+    "http://result-processing-system.vercel.app/",
 ]
+
+CORS_ALLOW_HEADERS = [
+    'Content-Type',
+    'Authorization',
+]
+
+CORS_ALLOW_METHODS = [
+    'GET',
+    'POST',
+    'PUT',
+    'DELETE',
+    'OPTIONS',
+    'PATCH',
+]
+
+CORS_ALLOW_CREDENTIALS = True
+

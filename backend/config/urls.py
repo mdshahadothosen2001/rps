@@ -13,4 +13,9 @@ urlpatterns = [
         view=include("student_api.urls"),
         name="user",
     ),
+    path(
+        route="user/",
+        view=include("teacher_api.urls"),
+        name="user",
+    ),
 ]

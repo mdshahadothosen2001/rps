@@ -13,7 +13,10 @@ class ExaminationsView(APIView):
 
     def get(self, request):
         semester_id = request.query_params.get("semester_id")
+        examination_name = request.query_params.get("examination_name")
         examinations = Examination.objects.filter(semester__id=semester_id)
+        if examination_name:
+            examinations = Examination.objects.filter(semester__id=semester_id, name=examination_name)
         serializers = ExaminationSerializer(examinations, many=True)
         return Response(serializers.data)
 
