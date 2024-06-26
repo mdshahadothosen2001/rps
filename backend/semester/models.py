@@ -14,7 +14,7 @@ class Semester(CommonInfo, models.Model):
     total_courses = models.PositiveSmallIntegerField(null=True, blank=True)
 
     def __str__(self):
-        return f"{self.semester_no}"
+        return f"{self.semester_no}: {self.session} : {self.department}"
     
     class Meta:
         verbose_name = "Semester"
