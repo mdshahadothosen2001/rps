@@ -9,7 +9,7 @@ SECRET_KEY = "django-insecure-$)^qvo2^!#-51z!oy7!uk7kg0=%423lhp6cug5(vw&)g-4ynsl
 
 DEBUG = True
 
-ALLOWED_HOSTS = ["sabihaakterbristy.pythonanywhere.com"]
+ALLOWED_HOSTS = ["sabihaakterbristy.pythonanywhere.com", 'localhost']
 
 
 DJANGO_APPS = [

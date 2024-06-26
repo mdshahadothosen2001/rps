@@ -7,6 +7,14 @@ class SemestersSerializer(serializers.ModelSerializer):
         model = Semester
         fields = ["id", 
                   "semester_no",
+                ]
+
+
+class SemesterDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Semester
+        fields = ["id", 
+                  "semester_no",
                   "session",
                   "department",
                   "teachers",

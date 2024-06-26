@@ -7,6 +7,7 @@ from .views.semester import SemestersView, SemesterView
 from .views.examination import ExaminationsView, ExaminationView
 from .views.register import UserRegistrationView
 from .views.answer import AnswerSubmittionView
+from .views.result import SemesterResultView, SemesterFinalResultView
 
 
 urlpatterns = [
@@ -26,4 +27,8 @@ urlpatterns = [
     path(route="examination/detail/", view=ExaminationView.as_view(), name="examination_detail"),
     # POST: localhost:8000/user/answer-submit/
     path(route="answer-submit/", view=AnswerSubmittionView.as_view(), name="answer_submit"),
+    # GET: localhost:8000/user/result/
+    path(route="result/", view=SemesterResultView.as_view(), name="semester_result"),
+    # GET: localhost:8000/user/final-result/
+    path(route="final-result/", view=SemesterFinalResultView.as_view(), name="semester_final_result"),
 ]

@@ -8,7 +8,7 @@ from semester.models import Semester
 class GPA(TimeStamp, models.Model):
     semester = models.ForeignKey(Semester, on_delete=models.DO_NOTHING)
     student = models.ForeignKey(UserAccount, on_delete=models.DO_NOTHING)
-    point = models.PositiveSmallIntegerField()
+    point = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self):
         return self.student.username
