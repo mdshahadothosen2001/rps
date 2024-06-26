@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from ..serializers.answer import AnswerSerializer
+from utils.utils import tokenValidation
 
 
 class AnswerSubmittionView(APIView):
@@ -15,14 +16,15 @@ class AnswerSubmittionView(APIView):
             return False
 
     def post(self, request):
+        payload = tokenValidation(request)
+        student_id = payload.get("id")
         examination = request.data.get("examination")
-        student = request.data.get("student")
         answer = request.data.get("answer")
 
-        if self.validate_parameter(examination, student, answer) is True:
+        if self.validate_parameter(examination, student_id, answer) is True:
             user_data = {
                 "examination": examination,
-                "student": student,
+                "student": student_id,
                 "answer": answer,
             }
 
