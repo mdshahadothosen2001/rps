@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from semester.models import Semester
-from ..serializers.semester import SemestersSerializer
+from ..serializers.semester import SemestersSerializer, SemesterDetailSerializer
 from utils.utils import tokenValidation
 
 
@@ -26,6 +26,6 @@ class SemesterView(APIView):
     def get(self, request):
         semester_id = request.query_params.get("semester_id")
         semesters = get_object_or_404(Semester, id=semester_id)
-        serializers = SemestersSerializer(semesters)
+        serializers = SemesterDetailSerializer(semesters)
         return Response(serializers.data)
 
