@@ -13,3 +13,17 @@ class ExaminationSerializer(serializers.ModelSerializer):
                   "deadline",
                   "question",
                 ]
+
+
+class ExaminationDetailSerializer(serializers.ModelSerializer):
+    exam_id = serializers.CharField(source="id", read_only=True)
+    class Meta:
+        model = Examination
+        fields = ["exam_id", 
+                  "name",
+                  "course",
+                  "semester",
+                  "teacher",
+                  "deadline",
+                  "question",
+                ]

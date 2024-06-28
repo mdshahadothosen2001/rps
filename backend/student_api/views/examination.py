@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from exam.models import Examination
-from ..serializers.examination import ExaminationSerializer
+from ..serializers.examination import ExaminationSerializer, ExaminationDetailSerializer
 
 
 class ExaminationsView(APIView):
@@ -27,5 +27,5 @@ class ExaminationView(APIView):
     def get(self, request):
         examination_id = request.query_params.get("examination_id")
         examination = get_object_or_404(Examination, id=examination_id)
-        serializers = ExaminationSerializer(examination)
+        serializers = ExaminationDetailSerializer(examination)
         return Response(serializers.data)
