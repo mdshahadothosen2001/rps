@@ -55,7 +55,7 @@ class SemesterFinalResultView(APIView):
                 "last_name": student_data.last_name,
                 "registration": student_data.username,
                 "roll": student_data.roll,
-                "CGPA": total_point,            
+                "CGPA": total_point/8,            
                 "semester_wise": serializer.data,
                 "date": datetime.now().date()
             }
