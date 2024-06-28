@@ -10,7 +10,7 @@ class ExaminationAdmin(admin.ModelAdmin):
         return obj.teacher.username
     
     def display_semester(self, obj):
-        return obj.semester.semester_no
+        return f"{obj.semester.session} : {obj.semester.semester_no}"
     
     def display_question(self, obj):
         return mark_safe('<img src="%s" style="max-width:100px; max-height:100px;" />' % obj.question)
