@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from answer.models import Answer
-from ..serializers.answer import AnswerSerializer
+from ..serializers.answer import AnswerListSerializer
 from utils.utils import tokenValidation
 
 
@@ -18,11 +18,10 @@ class AnswerListView(APIView):
         semester_id = request.query_params.get("semester_id")
         examination_name = request.query_params.get("examination_name")
         if semester_id and examination_name:
-            print(semester_id, examination_name)
             answers = get_list_or_404(Answer, examination__semester__id=semester_id, examination__name=examination_name)
-            serializer = AnswerSerializer(answers, many=True)
+            serializer = AnswerListSerializer(answers, many=True)
             return Response(serializer.data)
         
         answers = get_list_or_404(Answer, examination__teacher__id=teacher_id)
-        serializer = AnswerSerializer(answers, many=True)
+        serializer = AnswerListSerializer(answers, many=True)
         return Response(serializer.data)
