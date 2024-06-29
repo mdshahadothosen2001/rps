@@ -23,3 +23,13 @@ class MarkEachCourseSerializer(serializers.ModelSerializer):
             "examination_course",
             "mark",
         ]
+
+
+class SemesterResultCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = GPA
+        fields = [
+            "semester",
+            "student",
+            "point",
+        ]

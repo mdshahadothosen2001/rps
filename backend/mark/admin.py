@@ -8,7 +8,7 @@ class MarkAdmin(admin.ModelAdmin):
         return obj.examination.semester.session
     
     def display_semester(self, obj):
-        return obj.examination.semester.semester_no
+        return f"{obj.examination.semester.semester_no} {obj.examination.semester.session}"
     
     def display_examination(self, obj):
         return f"{obj.examination.name} {obj.examination.course}"

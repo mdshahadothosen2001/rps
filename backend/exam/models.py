@@ -14,7 +14,7 @@ class Examination(TimeStamp, models.Model):
     question = models.URLField()
 
     def __str__(self):
-        return f"{self.name} {self.course}"
+        return f"{self.name} {self.course} {self.semester}"
 
 
     class Meta:

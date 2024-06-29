@@ -9,8 +9,9 @@ from rest_framework.response import Response
 
 from user.models import UserAccount
 from gpa.models import GPA
+from semester.models import Semester
 from mark.models import Mark
-from ..serializers.result import SemesterResultSerializer, MarkEachCourseSerializer
+from ..serializers.result import SemesterResultSerializer, MarkEachCourseSerializer, SemesterResultCreateSerializer
 from utils.utils import tokenValidation
 
 
@@ -20,22 +21,48 @@ class SemesterResultView(APIView):
     def get(self, request):
         registration_no = request.query_params.get("registration_no")
         semester_id = request.query_params.get("semester_id")
+
+        # check user need CGPA or GPA
         if semester_id not in ["FINAL", "Final", "final"]:
+
             student_data = get_object_or_404(UserAccount, username=registration_no)
-            result = get_object_or_404(GPA, student__username=registration_no, semester__id=semester_id)
+
+            total_courses = get_object_or_404(Semester, id=semester_id)
+            total_courses = total_courses.total_courses
+
             marks = get_list_or_404(Mark, examination__semester__id=semester_id, examination__name="final")
-            marks_serializer = MarkEachCourseSerializer(marks, many=True)
-            serializer = SemesterResultSerializer(result)
-            result = {
-                "first_name": student_data.first_name,
-                "last_name": student_data.last_name,
-                "registration": student_data.username,
-                "roll": student_data.roll,
-                "GPA": serializer.data.get("point"),            
-                "course_wise": marks_serializer.data,
-                "date": datetime.now().date()
-            }
-            return Response(result)
+
+            if total_courses == len(marks):
+                total_points = Mark.objects.filter(examination__semester__id=semester_id, examination__name="final").aggregate(total_points=Sum('mark'))['total_points']
+
+                semester_point = total_points / total_courses
+
+                create_GPA = {
+                    "semester": semester_id,
+                    "student": student_data.id,
+                    "point": semester_point
+                }
+
+                is_result = GPA.objects.filter(student__username=registration_no, semester__id=semester_id).exists()
+
+                create_GPA_serializer = SemesterResultCreateSerializer(data=create_GPA)
+                if create_GPA_serializer.is_valid() and is_result is False:
+                    create_GPA_serializer.save()
+
+                marks_serializer = MarkEachCourseSerializer(marks, many=True)
+
+                result = {
+                    "first_name": student_data.first_name,
+                    "last_name": student_data.last_name,
+                    "registration": student_data.username,
+                    "roll": student_data.roll,
+                    "GPA": semester_point,            
+                    "course_wise": marks_serializer.data,
+                    "date": datetime.now().date()
+                }
+                return Response(result)
+            
+            return Response("not found")
         else:
             student_data = get_object_or_404(UserAccount, username=registration_no)
             result = GPA.objects.filter(student__username=registration_no)
