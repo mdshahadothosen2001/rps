@@ -4,6 +4,7 @@ from .views.answer import AnswerListView
 from .views.semester_done import SemesterDoneView, SemestersView
 from .views.examination import ExaminationCreateView
 from .views.result import MarkEachCourseView, GPACalculateView
+from .views.students import StudentListView
 
 
 urlpatterns = [
@@ -19,4 +20,6 @@ urlpatterns = [
     path(route="add-result-each-course/", view=MarkEachCourseView.as_view(), name="mark_add"),
     # POST: localhost:8000/user/semester-result-add-result/
     path(route="semester-result-add-result/", view=GPACalculateView.as_view(), name="semester_result_add"),
+    # GET: localhost:8000/user/student-list/
+    path(route="student-list/", view=StudentListView.as_view(), name="student_list"),
 ]
