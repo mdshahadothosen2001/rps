@@ -20,30 +20,30 @@ class SemesterResultView(APIView):
 
     def get(self, request):
         registration_no = request.query_params.get("registration_no")
-        semester_id = request.query_params.get("semester_id")
+        semester_no = request.query_params.get("semester_no")
 
         # check user need CGPA or GPA
-        if semester_id not in ["FINAL", "Final", "final"]:
+        if semester_no not in ["FINAL", "Final", "final"]:
 
             student_data = get_object_or_404(UserAccount, username=registration_no)
 
-            total_courses = get_object_or_404(Semester, id=semester_id)
+            total_courses = get_object_or_404(Semester, id=semester_no)
             total_courses = total_courses.total_courses
 
-            marks = get_list_or_404(Mark, examination__semester__id=semester_id, examination__name="final")
+            marks = get_list_or_404(Mark, examination__semester__id=semester_no, student__username=registration_no, examination__name="final")
 
             if total_courses == len(marks):
-                total_points = Mark.objects.filter(examination__semester__id=semester_id, examination__name="final").aggregate(total_points=Sum('mark'))['total_points']
+                total_points = Mark.objects.filter(examination__semester__id=semester_no, student__username=registration_no, examination__name="final").aggregate(total_points=Sum('mark'))['total_points']
 
                 semester_point = total_points / total_courses
 
                 create_GPA = {
-                    "semester": semester_id,
+                    "semester": semester_no,
                     "student": student_data.id,
                     "point": semester_point
                 }
 
-                is_result = GPA.objects.filter(student__username=registration_no, semester__id=semester_id).exists()
+                is_result = GPA.objects.filter(student__username=registration_no, semester__id=semester_no).exists()
 
                 create_GPA_serializer = SemesterResultCreateSerializer(data=create_GPA)
                 if create_GPA_serializer.is_valid() and is_result is False:
@@ -62,7 +62,7 @@ class SemesterResultView(APIView):
                 }
                 return Response(result)
             
-            return Response("not found")
+            return Response("not founds")
         else:
             student_data = get_object_or_404(UserAccount, username=registration_no)
             result = GPA.objects.filter(student__username=registration_no)
