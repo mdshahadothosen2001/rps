@@ -8,7 +8,7 @@ from exam.models import Examination
 class Answer(TimeStamp, models.Model):
     examination = models.ForeignKey(Examination, on_delete=models.DO_NOTHING)
     student = models.ForeignKey(UserAccount, on_delete=models.DO_NOTHING)
-    answer = models.URLField()
+    answer = models.URLField(null=True, blank=True)
 
 
     class Meta:
