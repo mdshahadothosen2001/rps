@@ -70,12 +70,14 @@ class SemesterResultView(APIView):
             total_passed_semester = result.aggregate(total_passed_semester=Count("id"))["total_passed_semester"]
             serializer = SemesterResultSerializer(result, many=True)
             if total_passed_semester == 8:
+                CGPA = total_point / 8
+                formatted_CGPA = round(CGPA, 2)
                 result = {
                     "first_name": student_data.first_name,
                     "last_name": student_data.last_name,
                     "registration": student_data.username,
                     "roll": student_data.roll,
-                    "CGPA": total_point/8,            
+                    "CGPA": formatted_CGPA,            
                     "semester_wise": serializer.data,
                     "date": datetime.now().date()
                 }
