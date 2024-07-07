@@ -8,7 +8,7 @@ from exam.models import Examination
 class Mark(TimeStamp, models.Model):
     examination = models.ForeignKey(Examination, on_delete=models.DO_NOTHING)
     student = models.ForeignKey(UserAccount, on_delete=models.DO_NOTHING)
-    mark = models.PositiveSmallIntegerField()
+    mark = models.DecimalField(max_digits=10, decimal_places=2)
 
     def save(self, *args, **kwargs):
         if 94 <= self.mark <= 100:
